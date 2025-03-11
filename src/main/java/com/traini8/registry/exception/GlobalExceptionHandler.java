@@ -15,7 +15,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handle validation errors (400 Bad Request)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -35,19 +34,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    // Handle Duplicate Key Exception (409 Conflict)
     @ExceptionHandler(DuplicateTrainingCenterException.class)
     public ResponseEntity<ErrorResponse> handleDuplicateKeyException(DuplicateTrainingCenterException ex) {
         return createErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), "/api/training-centers");
     }
 
-    // Handle Generic RuntimeException (500 Internal Server Error)
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleGenericException(RuntimeException ex) {
         return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "/api/training-centers");
     }
 
-    // Generic method to create error response
     private ResponseEntity<ErrorResponse> createErrorResponse(HttpStatus status, String message, String path) {
         ErrorResponse errorResponse = new ErrorResponse(
                 ZonedDateTime.now(),

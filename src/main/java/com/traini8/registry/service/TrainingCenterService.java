@@ -19,6 +19,14 @@ public class TrainingCenterService {
     private final TrainingCenterRepository repository;
     private final TrainingCenterMapper trainingCenterMapper;
 
+    /**
+     * Creates a new Training Center if it does not already exist.
+     *
+     * @param requestDTO The DTO containing training center details.
+     * @return The DTO representing the newly created training center.
+     * @throws DuplicateTrainingCenterException if a training center with the same center code already exists.
+     * @throws NullPointerException if requestDTO is null.
+     */
     public TrainingCenterResponseDTO createTrainingCenter(TrainingCenterRequestDTO requestDTO){
         if (repository.existsByCenterCode(requestDTO.getCenterCode())) {
             throw new DuplicateTrainingCenterException("Training center with code " + requestDTO.getCenterCode() + " already exists!");
@@ -28,6 +36,11 @@ public class TrainingCenterService {
         return trainingCenterMapper.toDto(trainingCenter);
     }
 
+    /**
+     * Retrieves a list of all training centers.
+     *
+     * @return A list of {@link TrainingCenterResponseDTO} representing all training centers.
+     */
     public List<TrainingCenterResponseDTO> getAllTrainingCenters() {
         return repository.findAll()
                 .stream()

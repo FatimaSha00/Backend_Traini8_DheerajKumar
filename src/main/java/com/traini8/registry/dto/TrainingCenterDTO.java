@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class TrainingCenterDTO {
-    private String id;
+    private Long id;
     private String centerName;
     private String centerCode;
     private Address address;
