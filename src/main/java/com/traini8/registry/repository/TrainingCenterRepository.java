@@ -8,4 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TrainingCenterRepository extends MongoRepository<TrainingCenter,String> {
+    boolean existsByCenterCode(String centerCode);
+
 }
