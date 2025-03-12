@@ -7,6 +7,7 @@ import com.traini8.registry.mapper.TrainingCenterMapper;
 import com.traini8.registry.model.TrainingCenter;
 import com.traini8.registry.repository.TrainingCenterRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TrainingCenterService {
 
     private final TrainingCenterRepository repository;
@@ -28,7 +30,10 @@ public class TrainingCenterService {
      * @throws NullPointerException if requestDTO is null.
      */
     public TrainingCenterResponseDTO createTrainingCenter(TrainingCenterRequestDTO requestDTO){
+        log.info("Received request to create training center: centerName={}, centerCode={}",
+                requestDTO.getCenterName(), requestDTO.getCenterCode());
         if (repository.existsByCenterCode(requestDTO.getCenterCode())) {
+            log.warn("Duplicate training center detected: centerCode={}", requestDTO.getCenterCode());
             throw new DuplicateTrainingCenterException("Training center with code " + requestDTO.getCenterCode() + " already exists!");
         }
         TrainingCenter trainingCenter = trainingCenterMapper.toEntity(requestDTO);
