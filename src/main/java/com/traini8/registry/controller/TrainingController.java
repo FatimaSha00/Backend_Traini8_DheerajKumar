@@ -20,7 +20,7 @@ public class TrainingController {
 
     private final TrainingCenterService trainingCenterService;
 
-    @PostMapping("/training-centers")
+    @PostMapping("/training-center")
     public ResponseEntity<TrainingCenterResponseDTO> createTrainingCenter(@RequestBody @Valid TrainingCenterRequestDTO requestDTO) {
 
         TrainingCenterResponseDTO savedCenter = trainingCenterService.createTrainingCenter(requestDTO);
@@ -31,7 +31,7 @@ public class TrainingController {
         return ResponseEntity.ok(savedCenter);
     }
 
-    @GetMapping("/getAll-training-centers")
+    @GetMapping("/training-centers")
     public ResponseEntity<List<TrainingCenterResponseDTO>> getAllTrainingCenters() {
         log.info("Fetching all training centers...");
         List<TrainingCenterResponseDTO> centers = trainingCenterService.getAllTrainingCenters();
