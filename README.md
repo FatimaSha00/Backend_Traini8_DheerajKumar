@@ -1,55 +1,71 @@
 # Backend_Traini8_DheerajKumar
 
-🏫 Training Center API
+## 🏫 Training Center API
 
-🚀 Overview
+### 🚀 Overview
 The Training Center API is a RESTful service built with Spring Boot, enabling users to manage training centers. It provides features for adding new centers, retrieving existing ones, and ensuring data validation with robust exception handling.
 
-📜 Features
-✅ Create a new training center
-✅ Retrieve all training centers
-✅ Input validation with @Valid
-✅ Exception handling for duplicate centers
-✅ Unit testing with JUnit & Mockito
+### 📜 Features
+✅ Create a new training center  
+✅ Retrieve all training centers  
+✅ Input validation with @Valid  
+✅ Exception handling for duplicate centers  
+✅ Unit testing with JUnit & Mockito  
+✅ Logging implemented and stored in log files
 
-🏗️ Technologies Used
-Java 17+
-Spring Boot
-Spring Data JPA
-MySQL
-Hibernate
-Jackson (for JSON processing)
-JUnit 5 & Mockito (for testing)
-Postman (for API testing)
-
+### 🏗️ Technologies Used
+- Java 17+
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Hibernate
+- Jackson (for JSON processing)
+- JUnit 5 & Mockito (for testing)
+- Postman (for API testing)
 
 ## ⚙️ Installation & Setup
 
-### 🔹 **1. Clone the Repository**
-```bash
+### 🔹 1. Clone the Repository
+```sh
 git clone https://github.com/your-username/training-center-api.git
 cd training-center-api
+```
 
-###🔹 **2. Configure Database**
+### 🔹 2. Configure Database
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/training_center_db
 spring.datasource.username=root
 spring.datasource.password=yourpassword
 spring.jpa.hibernate.ddl-auto=update
+```
 
-
-###🔹 **3. Build and Run the Project**
+### 🔹 3. Build and Run the Project
+```sh
 mvn clean install
 mvn spring-boot:run
+```
 
+### 🔹 4. Configure Logging
+Logs are stored in files for tracking application activity. Update `application.properties`:
+```properties
+logging.file.name=logs/application.log
+logging.level.root=INFO
+logging.level.org.springframework.web=DEBUG
+```
+Logs are written to the `logs/application.log` file in the project directory.
 
-📌 API Endpoints
-HTTP Method	    Endpoint	                 Description
-POST	    /training-centers	        Create a new training center
-GET	        /getAll-training-centers	    Retrieve all training centers
+## 📌 API Endpoints
+| HTTP Method | Endpoint                   | Description |
+|------------|----------------------------|-------------|
+| POST       | /training-centers          | Create a new training center |
+| GET        | /getAll-training-centers   | Retrieve all training centers |
 
-📝 Request Example: Create Training Center
+## 📝 Request Example: Create Training Center
+```http
 POST /training-centers
-Request Body:
+```
+**Request Body:**
+```json
 {
     "centerName": "BABA JI Institute",
     "centerCode": "ABC123XY8387",
@@ -64,12 +80,14 @@ Request Body:
         "Java",
         "Spring Boot"
     ],
-    "createdOn": 1710000000, // User tries to send this, but it should be ignored
+    "createdOn": 1710000000,
     "contactEmail": "contact@techcenter.com",
     "contactPhone": "9876543210"
 }
+```
 
-Response:
+**Response:**
+```json
 {
     "centerName": "BABA JI Institute",
     "centerCode": "ABC123XY8387",
@@ -88,10 +106,14 @@ Response:
     "contactEmail": "contact@techcenter.com",
     "contactPhone": "9876543210"
 }
+```
 
-📝 Request Example: Get All Training Center
+## 📝 Request Example: Get All Training Centers
+```http
 GET /getAll-training-centers
-Response:
+```
+**Response:**
+```json
 [
     {
         "centerName": "Tech Training Hub",
@@ -128,10 +150,14 @@ Response:
         "createdOn": 1741684607975,
         "contactEmail": "contact@techcenter.com",
         "contactPhone": "9876543210"
-    },
-]    
+    }
+]
+```
 
-📌 Error Handling
-400 Bad Request → Missing required fields
-409 Conflict → Duplicate training center code
-500 Internal Server Error → Unexpected errors 
+## 📌 Error Handling
+- **400 Bad Request** → Missing required fields
+- **409 Conflict** → Duplicate training center code
+- **500 Internal Server Error** → Unexpected errors
+
+Logs are stored in `logs/application.log` to help monitor application behavior.
+
